@@ -42,7 +42,7 @@ if __name__ == '__main__':
     # ---- Base class statistics
     base_means = []
     base_cov = []
-    base_features_path = "./checkpoints/%s/WideResNet28_10_S2M2_R/last/base_features.plk"%dataset
+    base_features_path = "./checkpoints/%s/base_features.plk"%dataset
     with open(base_features_path, 'rb') as f:
         data = pickle.load(f)
         for key in data.keys():
@@ -62,7 +62,7 @@ if __name__ == '__main__':
         query_data = ndatas[i][n_lsamples:].numpy()
         query_label = labels[i][n_lsamples:].numpy()
         # ---- Tukey's transform
-        beta = 0.5
+        beta = 1 #0.5 # TODO: 0.25, 0.75
         support_data = np.power(support_data[:, ] ,beta)
         query_data = np.power(query_data[:, ] ,beta)
         # ---- distribution calibration and feature sampling
